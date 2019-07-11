@@ -1,6 +1,8 @@
 import { Traveler } from "../utils/traveller/traveller";
 
 export class Harvester {
+  private static CreepRepairing: boolean = false;
+
   public static Work(CurrentCreep: Creep, CurrentSpawn: StructureSpawn, CurrentRoom: Room) {
     const source: Source = CurrentCreep.room.find(FIND_SOURCES)[0];
     if (source) {

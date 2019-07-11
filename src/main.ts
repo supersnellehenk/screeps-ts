@@ -58,17 +58,22 @@ export const loop = ErrorMapper.wrapLoop(() => {
       case "controller":
         ControllerAmount++;
         Controller.Work(CurrentCreep, CurrentSpawn, CurrentRoom);
+        if (CurrentCreep.memory.isFull) {
+          Controller.Work(CurrentCreep, CurrentSpawn, CurrentRoom);
+        } else {
+          Harvester.Work(CurrentCreep, CurrentSpawn, CurrentRoom);
+        }
     }
   }
 
   for (const spawn in Game.spawns) {
-    if (HarvesterAmount < MaxHarvesters) {
-      CurrentCreepMemory.role = "harvester";
-      CurrentSpawn.createCreep([WORK, WORK, CARRY, MOVE], "Harvester" + String(Game.time), CurrentCreepMemory);
-    }
-    // if (ControllerAmount < MaxControllers) {
-    //   CurrentCreepMemory.role = "controller";
-    //   CurrentSpawn.createCreep([WORK, WORK, CARRY, MOVE], "Controller" + String(Game.time), CurrentCreepMemory);
+    // if (HarvesterAmount < MaxHarvesters) {
+    //   CurrentCreepMemory.role = "harvester";
+    //   CurrentSpawn.createCreep([WORK, WORK, CARRY, MOVE], "Harvester" + String(Game.time), CurrentCreepMemory);
     // }
+    if (ControllerAmount < MaxControllers) {
+      CurrentCreepMemory.role = "controller";
+      CurrentSpawn.createCreep([WORK, WORK, CARRY, MOVE], "Controller" + String(Game.time), CurrentCreepMemory);
+    }
   }
 });
