@@ -31,10 +31,10 @@ export const loop = ErrorMapper.wrapLoop(() => {
   }
 
   for (const spawn in Game.spawns) {
-    // if (HarvesterAmount < MaxHarvesters) {
-    //   CurrentCreepMemory.role = "harvester";
-    //   CurrentSpawn.createCreep([WORK, WORK, CARRY, MOVE], "Harvester" + String(Game.time), CurrentCreepMemory);
-    // }
+    if (Globals.HarvesterAmount < Globals.MaxHarvesters) {
+      CurrentCreepMemory.role = "harvester";
+      Globals.CurrentSpawn.createCreep([WORK, WORK, CARRY, MOVE], "Harvester" + String(Game.time), CurrentCreepMemory);
+    }
     if (Globals.ControllerAmount < Globals.MaxControllers) {
       CurrentCreepMemory.role = "controller";
       Globals.CurrentSpawn.createCreep([WORK, WORK, CARRY, MOVE], "Controller" + String(Game.time), CurrentCreepMemory);

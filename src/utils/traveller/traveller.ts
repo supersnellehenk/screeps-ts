@@ -193,7 +193,7 @@ export class Traveler {
    */
 
   public static checkAvoid(roomName: string) {
-    return Memory.rooms && Memory.rooms[roomName] && Memory.rooms[roomName].avoid;
+    return Memory.rooms && Memory.rooms[roomName] && Memory.rooms[roomName];
   }
 
   /**
@@ -250,18 +250,18 @@ export class Traveler {
    * @param room
    */
 
-  public static updateRoomStatus(room: Room) {
-    if (!room) {
-      return;
-    }
-    if (room.controller) {
-      if (room.controller.owner && !room.controller.my) {
-        room.memory.avoid = 1;
-      } else {
-        delete room.memory.avoid;
-      }
-    }
-  }
+  // public static updateRoomStatus(room: Room) {
+  //   if (!room) {
+  //     return;
+  //   }
+  //   if (room.controller) {
+  //     if (room.controller.owner && !room.controller.my) {
+  //       room.memory.avoid = 1;
+  //     } else {
+  //       delete room.memory.avoid;
+  //     }
+  //   }
+  // }
 
   /**
    * find a path from origin to destination
@@ -619,32 +619,32 @@ export class Traveler {
    * @param cleanup
    */
 
-  public static patchMemory(cleanup = false) {
-    if (!Memory.empire) {
-      return;
-    }
-    if (!Memory.empire.hostileRooms) {
-      return;
-    }
-    let count = 0;
-    for (const roomName in Memory.empire.hostileRooms) {
-      if (Memory.empire.hostileRooms[roomName]) {
-        if (!Memory.rooms[roomName]) {
-          Memory.rooms[roomName] = {} as any;
-        }
-        Memory.rooms[roomName].avoid = 1;
-        count++;
-      }
-      if (cleanup) {
-        delete Memory.empire.hostileRooms[roomName];
-      }
-    }
-    if (cleanup) {
-      delete Memory.empire.hostileRooms;
-    }
+  // public static patchMemory(cleanup = false) {
+  //   if (!Memory.empire) {
+  //     return;
+  //   }
+  //   if (!Memory.empire.hostileRooms) {
+  //     return;
+  //   }
+  //   let count = 0;
+  //   for (const roomName in Memory.empire.hostileRooms) {
+  //     if (Memory.empire.hostileRooms[roomName]) {
+  //       if (!Memory.rooms[roomName]) {
+  //         Memory.rooms[roomName] = {} as any;
+  //       }
+  //       Memory.rooms[roomName].avoid = 1;
+  //       count++;
+  //     }
+  //     if (cleanup) {
+  //       delete Memory.empire.hostileRooms[roomName];
+  //     }
+  //   }
+  //   if (cleanup) {
+  //     delete Memory.empire.hostileRooms;
+  //   }
 
-    console.log(`TRAVELER: room avoidance data patched for ${count} rooms`);
-  }
+  //   console.log(`TRAVELER: room avoidance data patched for ${count} rooms`);
+  // }
 
   private static deserializeState(travelData: TravelData, destination: RoomPosition): TravelState {
     const state = {} as TravelState;
