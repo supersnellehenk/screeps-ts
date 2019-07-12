@@ -9,4 +9,11 @@ export class Globals {
 
   public static CurrentRoom: Room = Game.rooms.E6N2;
   public static CurrentSpawn: StructureSpawn = Game.spawns.HenkIsHier;
+
+  public static ResetGlobalAmounts() {
+    this.HarvesterAmount = 0;
+    this.HaulerAmount = 0;
+    this.MaintainerAmount = 0;
+    this.ControllerAmount = 0;
+  }
 }

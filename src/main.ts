@@ -19,6 +19,8 @@ export const loop = ErrorMapper.wrapLoop(() => {
     working: false
   };
 
+  Globals.ResetGlobalAmounts();
+
   // Automatically delete memory of missing creeps
   for (const name in Memory.creeps) {
     if (!(name in Game.creeps)) {
@@ -31,6 +33,8 @@ export const loop = ErrorMapper.wrapLoop(() => {
   }
 
   for (const spawn in Game.spawns) {
+    console.log("TCL: Globals.MaxHarvesters", Globals.MaxHarvesters);
+    console.log("TCL: Globals.HarvesterAmount", Globals.HarvesterAmount);
     if (Globals.HarvesterAmount < Globals.MaxHarvesters) {
       CurrentCreepMemory.role = "harvester";
       Globals.CurrentSpawn.createCreep([WORK, WORK, CARRY, MOVE], "Harvester" + String(Game.time), CurrentCreepMemory);
