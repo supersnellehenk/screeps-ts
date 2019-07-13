@@ -15,5 +15,7 @@ export class Globals {
     this.HaulerAmount = 0;
     this.MaintainerAmount = 0;
     this.ControllerAmount = 0;
+
+    this.CurrentSpawn = Game.spawns.HenkIsHier;
   }
 }

@@ -33,8 +33,6 @@ export const loop = ErrorMapper.wrapLoop(() => {
   }
 
   for (const spawn in Game.spawns) {
-    console.log("TCL: Globals.MaxHarvesters", Globals.MaxHarvesters);
-    console.log("TCL: Globals.HarvesterAmount", Globals.HarvesterAmount);
     if (Globals.HarvesterAmount < Globals.MaxHarvesters) {
       CurrentCreepMemory.role = "harvester";
       Globals.CurrentSpawn.createCreep([WORK, WORK, CARRY, MOVE], "Harvester" + String(Game.time), CurrentCreepMemory);
