@@ -3,7 +3,6 @@ import { ErrorMapper } from "utils/ErrorMapper";
 import * as Profiler from "utils/Profiler";
 import { Globals } from "./globals";
 import { RoleRegulator } from "./utils/RoleRegulator";
-import { Traveler } from "./utils/traveller/traveller";
 
 global.Profiler = Profiler.init();
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
