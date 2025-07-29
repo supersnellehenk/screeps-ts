@@ -13,26 +13,26 @@ export class RoleRegulator {
       case "harvester":
         Globals.HarvesterAmount++;
         if (CurrentCreep.memory.isFull && Globals.CurrentRoom.find(FIND_CONSTRUCTION_SITES)[0] === undefined) {
-          Controller.Work(CurrentCreep, Globals.CurrentSpawn, Globals.CurrentRoom);
+          Controller.Work(CurrentCreep);
         } else {
-          Harvester.Work(CurrentCreep, Globals.CurrentSpawn, Globals.CurrentRoom);
+          Harvester.Work(CurrentCreep);
         }
         break;
       case "hauler":
         Globals.HaulerAmount++;
-        Hauler.Work(CurrentCreep, Globals.CurrentSpawn, Globals.CurrentRoom);
+        Hauler.Work(CurrentCreep);
         break;
       case "maintainer":
         Globals.MaintainerAmount++;
-        Maintainer.Work(CurrentCreep, Globals.CurrentSpawn, Globals.CurrentRoom);
+        Maintainer.Work(CurrentCreep);
         break;
       case "controller":
         Globals.ControllerAmount++;
-        Controller.Work(CurrentCreep, Globals.CurrentSpawn, Globals.CurrentRoom);
+        Controller.Work(CurrentCreep);
         if (CurrentCreep.memory.isFull) {
-          Controller.Work(CurrentCreep, Globals.CurrentSpawn, Globals.CurrentRoom);
+          Controller.Work(CurrentCreep);
         } else {
-          Harvester.Work(CurrentCreep, Globals.CurrentSpawn, Globals.CurrentRoom);
+          Harvester.Work(CurrentCreep);
         }
     }
   }

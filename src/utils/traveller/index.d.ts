@@ -21,7 +21,7 @@ interface TravelToOptions {
   allowHostile?: boolean;
   allowSK?: boolean;
   range?: number;
-  obstacles?: Array<{ pos: RoomPosition }>;
+  obstacles?: { pos: RoomPosition }[];
   roomCallback?: (roomName: string, matrix: CostMatrix) => CostMatrix | boolean;
   routeCallback?: (roomName: string) => number;
   returnData?: TravelToReturnData;
@@ -40,7 +40,7 @@ interface TravelToOptions {
 
 interface TravelData {
   state: any[];
-  path: string;
+  path: string | undefined;
 }
 
 interface TravelState {

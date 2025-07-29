@@ -7,8 +7,8 @@ export class Globals {
   public static MaintainerAmount: number = 0;
   public static ControllerAmount: number = 0;
 
-  public static CurrentRoom: Room = Game.rooms.E6N2;
-  public static CurrentSpawn: StructureSpawn = Game.spawns.HenkIsHier;
+  public static CurrentRoom: Room = Game.rooms.W8N8;
+  public static CurrentSpawn: StructureSpawn = Game.spawns.Spawn1;
 
   public static ResetGlobalAmounts() {
     this.HarvesterAmount = 0;
@@ -16,6 +16,6 @@ export class Globals {
     this.MaintainerAmount = 0;
     this.ControllerAmount = 0;
 
-    this.CurrentSpawn = Game.spawns.HenkIsHier;
+    this.CurrentSpawn = Game.spawns.Ligma;
   }
 }

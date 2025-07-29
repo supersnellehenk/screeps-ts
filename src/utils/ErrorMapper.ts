@@ -1,5 +1,5 @@
-// tslint:disable:no-conditional-assignment
 import { SourceMapConsumer } from "source-map";
+import _ from "lodash";
 
 export class ErrorMapper {
   // Cache consumer
@@ -27,14 +27,16 @@ export class ErrorMapper {
    */
   public static sourceMappedStackTrace(error: Error | string): string {
     const stack: string = error instanceof Error ? (error.stack as string) : error;
-    if (this.cache.hasOwnProperty(stack)) {
+    if (Object.prototype.hasOwnProperty.call(this.cache, stack)) {
       return this.cache[stack];
     }
 
+    // eslint-disable-next-line no-useless-escape
     const re = /^\s+at\s+(.+?\s+)?\(?([0-z._\-\\\/]+):(\d+):(\d+)\)?$/gm;
     let match: RegExpExecArray | null;
     let outStack = error.toString();
 
+    // tslint:disable-next-line:no-conditional-assignment
     while ((match = re.exec(stack))) {
       if (match[2] === "main") {
         const pos = this.consumer.originalPositionFor({

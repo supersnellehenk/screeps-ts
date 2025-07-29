@@ -1,7 +1,10 @@
 import { Traveler } from "utils/traveller/traveller";
 
+/**
+ * This creep upgrades the room controller
+ */
 export class Controller {
-  public static Work(CurrentCreep: Creep, CurrentSpawn: StructureSpawn, CurrentRoom: Room) {
+  public static Work(CurrentCreep: Creep) {
     if (!CurrentCreep.memory.isFull) {
       const Storage = CurrentCreep.room.find(FIND_MY_STRUCTURES, {
         filter: i => {

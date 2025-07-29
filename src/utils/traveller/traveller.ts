@@ -3,6 +3,8 @@
  * Example: var Traveler = require('Traveler.js');
  */
 
+import _, { isUndefined } from "lodash";
+
 export class Traveler {
   private static structureMatrixCache: { [roomName: string]: CostMatrix } = {};
   private static creepMatrixCache: { [roomName: string]: CostMatrix } = {};
@@ -82,7 +84,7 @@ export class Traveler {
 
     // delete path cache if destination is different
     if (!this.samePos(state.destination, destination)) {
-      if (options.movingTarget && state.destination.isNearTo(destination)) {
+      if (options.movingTarget && state.destination.isNearTo(destination) && !isUndefined(travelData.path)) {
         travelData.path += state.destination.getDirectionTo(destination);
         state.destination = destination;
       } else {
@@ -530,7 +532,7 @@ export class Traveler {
 
   public static addStructuresToMatrix(room: Room, matrix: CostMatrix, roadCost: number): CostMatrix {
     const impassibleStructures: Structure[] = [];
-    for (const structure of room.find<Structure>(FIND_STRUCTURES)) {
+    for (const structure of room.find(FIND_STRUCTURES)) {
       if (structure instanceof StructureRampart) {
         if (!structure.my && !structure.isPublic) {
           impassibleStructures.push(structure);

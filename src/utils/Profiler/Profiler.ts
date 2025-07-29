@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 /* tslint:disable:ban-types */
 export function init(): Profiler {
   const defaults = {
@@ -188,24 +190,24 @@ function outputProfilerData() {
   let output = "";
 
   // get function name max length
-  const longestName = Number(_.max(data, d => d.name.length)) + 2;
+  const longestName = Number(_.max(data)) + 2;
 
   //// Header line
-  output += _.padRight("Function", longestName);
-  output += _.padLeft("Tot Calls", 12);
-  output += _.padLeft("CPU/Call", 12);
-  output += _.padLeft("Calls/Tick", 12);
-  output += _.padLeft("CPU/Tick", 12);
-  output += _.padLeft("% of Tot\n", 12);
+  output += _.padEnd("Function", longestName);
+  output += _.padStart("Tot Calls", 12);
+  output += _.padStart("CPU/Call", 12);
+  output += _.padStart("Calls/Tick", 12);
+  output += _.padStart("CPU/Tick", 12);
+  output += _.padStart("% of Tot\n", 12);
 
   ////  Data lines
   data.forEach(d => {
-    output += _.padRight(`${d.name}`, longestName);
-    output += _.padLeft(`${d.calls}`, 12);
-    output += _.padLeft(`${d.cpuPerCall.toFixed(2)}ms`, 12);
-    output += _.padLeft(`${d.callsPerTick.toFixed(2)}`, 12);
-    output += _.padLeft(`${d.cpuPerTick.toFixed(2)}ms`, 12);
-    output += _.padLeft(`${((d.cpuPerTick / totalCpu) * 100).toFixed(0)} %\n`, 12);
+    output += _.padEnd(`${d.name}`, longestName);
+    output += _.padStart(`${d.calls}`, 12);
+    output += _.padStart(`${d.cpuPerCall.toFixed(2)}ms`, 12);
+    output += _.padStart(`${d.callsPerTick.toFixed(2)}`, 12);
+    output += _.padStart(`${d.cpuPerTick.toFixed(2)}ms`, 12);
+    output += _.padStart(`${((d.cpuPerTick / totalCpu) * 100).toFixed(0)} %\n`, 12);
   });
 
   //// Footer line

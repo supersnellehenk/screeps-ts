@@ -4,19 +4,15 @@ import * as Profiler from "utils/Profiler";
 import { Globals } from "./globals";
 import { RoleRegulator } from "./utils/RoleRegulator";
 
+declare global {
+  var Profiler: Profiler;
+}
+
 global.Profiler = Profiler.init();
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
 export const loop = ErrorMapper.wrapLoop(() => {
   console.log(`Current game tick is ${Game.time}`);
-  const CurrentCreepMemory: CreepMemory = {
-    _trav: null,
-    _travel: null,
-    isFull: false,
-    role: "harvester",
-    room: Globals.CurrentRoom.name,
-    working: false
-  };
 
   Globals.ResetGlobalAmounts();
 
@@ -31,14 +27,24 @@ export const loop = ErrorMapper.wrapLoop(() => {
     RoleRegulator.Regulate(Game.creeps[creep]);
   }
 
-  for (const spawn in Game.spawns) {
+  for (const spawnName in Game.spawns) {
+    const spawn = Game.spawns[spawnName];
+    const CurrentCreepMemory: CreepMemory = {
+      _trav: null,
+      _travel: null,
+      isFull: false,
+      role: "harvester",
+      room: spawn.room.name,
+      working: false
+    };
+
     if (Globals.HarvesterAmount < Globals.MaxHarvesters) {
       CurrentCreepMemory.role = "harvester";
-      Globals.CurrentSpawn.createCreep([WORK, WORK, CARRY, MOVE], "Harvester" + String(Game.time), CurrentCreepMemory);
+      spawn.spawnCreep([WORK, WORK, CARRY, MOVE], "Harvester" + String(Game.time), {memory: CurrentCreepMemory});
     }
     if (Globals.ControllerAmount < Globals.MaxControllers) {
       CurrentCreepMemory.role = "controller";
-      Globals.CurrentSpawn.createCreep([WORK, WORK, CARRY, MOVE], "Controller" + String(Game.time), CurrentCreepMemory);
+      spawn.spawnCreep([WORK, WORK, CARRY, MOVE], "Controller" + String(Game.time), {memory: CurrentCreepMemory});
     }
   }
 });

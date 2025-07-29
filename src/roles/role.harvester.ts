@@ -1,14 +1,16 @@
+import _ from "lodash";
 import { Traveler } from "../utils/traveller/traveller";
 
 export class Harvester {
   private static CreepRepairing: boolean = false;
 
-  public static Work(CurrentCreep: Creep, CurrentSpawn: StructureSpawn, CurrentRoom: Room) {
+  public static Work(CurrentCreep: Creep) {
     const source: Source = CurrentCreep.room.find(FIND_SOURCES)[0];
     if (source) {
-      const ConstructionSites = CurrentRoom.find(FIND_CONSTRUCTION_SITES)[0];
+      const ConstructionSites = CurrentCreep.room.find(FIND_CONSTRUCTION_SITES)[0];
+      const CurrentSpawn = CurrentCreep.room.find(FIND_MY_SPAWNS)[0];
       if (!CurrentCreep.memory.isFull) {
-        if (_.sum(CurrentCreep.carry) === CurrentCreep.carryCapacity) {
+        if (CurrentCreep.store.getFreeCapacity() === 0) {
           CurrentCreep.memory.isFull = true;
         } else {
           if (!CurrentCreep.pos.inRangeTo(source.pos, 1)) {
