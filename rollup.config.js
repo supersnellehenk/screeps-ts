@@ -21,16 +21,33 @@ export default {
     file: "dist/main.js",
     format: "cjs",
     sourcemap: true,
-    minifyInternalExports: true,
     compact: true,
+    freeze: false,
+    hoistTransitiveImports: false
   },
 
   plugins: [
     clear({ targets: ["dist"] }),
-    resolve({ rootDir: "src" }),
+    resolve({ rootDir: "src", preferBuiltins: true }),
     commonjs(),
     typescript({tsconfig: "./tsconfig.json"}),
     screeps({config: cfg, dryRun: cfg == null}),
-    terser()
+    terser({
+      format: {
+        comments: false,
+        ecma: 2018
+      },
+      compress: {
+        ecma: 2018,
+        unsafe: true,
+        unsafe_arrows: true,
+        unsafe_methods: true,
+        unsafe_proto: true,
+        passes: 2,
+        pure_getters: true,
+        reduce_vars: true,
+        join_vars: true
+      }
+    })
   ]
 }
