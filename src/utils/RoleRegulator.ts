@@ -12,11 +12,11 @@ export class RoleRegulator {
     switch (role) {
       case "harvester":
         Globals.HarvesterAmount++;
-        if (CurrentCreep.memory.isFull && Globals.CurrentRoom.find(FIND_CONSTRUCTION_SITES)[0] === undefined) {
-          Controller.Work(CurrentCreep);
-        } else {
+        // if (CurrentCreep.memory.isFull && Globals.CurrentRoom.find(FIND_CONSTRUCTION_SITES)[0] === undefined) {
+        //   Controller.Work(CurrentCreep);
+        // } else {
           Harvester.Work(CurrentCreep);
-        }
+        // }
         break;
       case "hauler":
         Globals.HaulerAmount++;
