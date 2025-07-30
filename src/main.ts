@@ -1,10 +1,9 @@
 import { ErrorMapper } from "utils/ErrorMapper";
 import * as Profiler from "utils/Profiler";
+import { CreepManager } from "./CreepManager";
 import { ErrorTracker } from "./ErrorTracker";
 import { Globals } from "./globals";
-import { MemoryMonitor } from "./MemoryMonitor";
 import { PerformanceMonitor } from "./PerformanceMonitor";
-import { RoleRegulator } from "./utils/RoleRegulator";
 import './extensions/extensions';
 
 declare global {
@@ -49,9 +48,9 @@ function runRoom(room: Room): void {
 
 function runCreep(creep: Creep): void {
   PerformanceMonitor.measureModule(creep.name, () => {
-    ErrorTracker.track(() => {
+    // ErrorTracker.track(() => {
       // Your creep logic here
-      RoleRegulator.Regulate(creep);
-    }, creep.name);
+      new CreepManager(creep).run();
+    // }, creep.name);
   });
 }

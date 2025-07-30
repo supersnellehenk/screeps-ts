@@ -1,18 +1,29 @@
 // example declaration file - remove these and add your own custom typings
 
 // memory extension samples
-interface CreepMemory {
-  role: string;
-  room: string;
-  working: boolean;
-  isFull: boolean;
-  _trav: any;
-  _travel: any;
-}
+import { CreepRole } from "./CreepRole";
+import { CreepState } from "./CreepState";
 
-interface Memory {
-  uuid: number;
-  log: any;
+declare global {
+  interface CreepMemory {
+    role: CreepRole;
+    working: boolean;
+    isFull: boolean;
+    state: CreepState;
+    moveTarget: {
+      target: {
+        x: number;
+        y: number;
+        roomName: string;
+      } | null;
+      range: number;
+    };
+    version: number;
+
+    // Traveller
+    _trav: any;
+    _travel: any;
+  }
 }
 
 // `global` extension samples
@@ -22,3 +33,5 @@ declare namespace NodeJS {
     log: any;
   }
 }
+
+export {};

@@ -34,6 +34,7 @@
  *     - Helps prevent hitting memory limits
  */
 import _ from "lodash";
+import { CreepRole } from "./CreepRole";
 
 export class GameStats {
   public static log(): void {
@@ -103,7 +104,7 @@ export class GameStats {
     const sources = room.find(FIND_SOURCES);
     const minerStats = sources.map(source => {
       const miners = source.pos.findInRange(FIND_MY_CREEPS, 1, {
-        filter: c => c.memory.role === 'harvester'
+        filter: c => c.memory.role === CreepRole.Harvester
       }).length;
       return `${miners}/${source.energy}`;
     }).join(', ');

@@ -3,7 +3,7 @@
 import clear from 'rollup-plugin-clear';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import typescript from 'rollup-plugin-typescript2';
+import typescript from '@rollup/plugin-typescript';
 import screeps from 'rollup-plugin-screeps';
 import terser from '@rollup/plugin-terser';
 
@@ -30,7 +30,14 @@ export default {
     clear({ targets: ["dist"] }),
     resolve({ rootDir: "src", preferBuiltins: true }),
     commonjs(),
-    typescript({tsconfig: "./tsconfig.json"}),
+    typescript({
+        tsconfig: "tsconfig.json",
+        noEmitOnError: true,  // This will make the build fail on TS errors
+        outputToFilesystem: true,  // Ensures proper file system output
+        typescript: require("typescript") // Use local typescript installation
+
+      }
+    ),
     screeps({config: cfg, dryRun: cfg == null}),
     terser({
       format: {

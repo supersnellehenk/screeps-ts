@@ -1,7 +1,6 @@
-import { Traveler } from "utils/traveller/traveller";
 
 export class Hauler {
-  public static Work(CurrentCreep: Creep) {
+  public static Work(_: Creep) {
     return;
 
     //     const targets = creep.room.find(FIND_DROPPED_RESOURCES);
