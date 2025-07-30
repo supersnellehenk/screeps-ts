@@ -1,6 +1,7 @@
 export class Globals {
   public static MaxHarvesters: number = 3;
   public static MaxControllers: number = 1;
+  public static MaxMaintainers: number = 1;
 
   public static HarvesterAmount: number = 0;
   public static HaulerAmount: number = 0;

@@ -55,9 +55,8 @@ export class Harvester {
         }
       }
     } else if (creep.memory.isFull) {
-      console.log(creep.room.storage?.store[RESOURCE_ENERGY]);
       const energyStorage = creep.room
-        .find(FIND_MY_STRUCTURES, {
+        .find(FIND_STRUCTURES, {
           filter: { structureType: STRUCTURE_CONTAINER }
         })
         .filter((structure: Structure) => {
@@ -66,6 +65,8 @@ export class Harvester {
 
       if (energyStorage.length > 0) {
         this.fillStructureWithEnergy(energyStorage[0], creep);
+      } else {
+        console.log("Nowhere to deposit energy!")
       }
     }
   }

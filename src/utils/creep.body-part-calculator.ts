@@ -55,6 +55,7 @@ export class BodyPartCalculator {
     switch (type) {
       case CreepType.Harvester:
       case CreepType.Controller:
+      case CreepType.Maintainer:
         partsToLoop = [WORK, WORK, CARRY, MOVE];
         break;
     }

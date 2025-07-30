@@ -3,6 +3,7 @@ import { CreepState } from "./CreepState";
 import { Globals } from "./globals";
 import { Controller } from "./roles/role.controller";
 import { Harvester } from "./roles/role.harvester";
+import { Maintainer } from "./roles/role.maintainer";
 import { Traveler } from "./utils/traveller/traveller";
 
 export class CreepManager {
@@ -19,6 +20,9 @@ export class CreepManager {
       case CreepRole.Controller:
         Globals.ControllerAmount++;
         break;
+      case CreepRole.Maintainer:
+        Globals.MaintainerAmount++;
+        break;
     }
   }
 
@@ -30,7 +34,14 @@ export class CreepManager {
             Harvester.Work(this.creep);
             break;
           case CreepRole.Controller:
-            Controller.Work(this.creep);
+            if (this.creep.memory.isFull) {
+              Controller.Work(this.creep);
+            } else {
+              Harvester.Work(this.creep);
+            }
+            break;
+          case CreepRole.Maintainer:
+            Maintainer.Work(this.creep);
             break;
           default:
             console.log(`No work for ${this.creep.role}!`);
@@ -67,13 +78,19 @@ export class CreepManager {
       case CreepState.Building:
         break;
       case CreepState.Maintaining:
+        Maintainer.Work(this.creep);
         break;
       case CreepState.Upgrading:
-        if (this.creep.role === CreepRole.Controller) {
+        if (this.creep.role === CreepRole.Controller && this.creep.memory.isFull) {
           Controller.Work(this.creep);
+        } else {
+          Harvester.Work(this.creep);
         }
         break;
       case CreepState.Repairing:
+        break;
+      case CreepState.GettingEnergy:
+        this.creep.getEnergy();
         break;
       default:
         this.creep.state = CreepState.Idle;

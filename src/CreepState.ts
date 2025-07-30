@@ -5,5 +5,6 @@ export enum CreepState {
   Maintaining,
   Upgrading,
   Repairing,
-  Traveling
+  Traveling,
+  GettingEnergy
 }

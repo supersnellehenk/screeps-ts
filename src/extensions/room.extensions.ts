@@ -27,12 +27,19 @@ Room.prototype.runSpawns = function (): void {
       version: 1
     };
 
+    if (spawn.spawning !== null) {
+      continue;
+    }
+
     if (Globals.HarvesterAmount < Globals.MaxHarvesters) {
       CurrentCreepMemory.role = CreepRole.Harvester;
       spawn.spawnCreep(BodyPartCalculator.Calculate(CreepType.Harvester, spawn.store.getCapacity(RESOURCE_ENERGY)), "Harvester" + String(Game.time), { memory: CurrentCreepMemory });
     } else if (Globals.ControllerAmount < Globals.MaxControllers) {
       CurrentCreepMemory.role = CreepRole.Controller;
       spawn.spawnCreep(BodyPartCalculator.Calculate(CreepType.Controller, spawn.store.getCapacity(RESOURCE_ENERGY)), "Controller" + String(Game.time), { memory: CurrentCreepMemory });
+    } else if (Globals.MaintainerAmount < Globals.MaxMaintainers) {
+      CurrentCreepMemory.role = CreepRole.Maintainer;
+      spawn.spawnCreep(BodyPartCalculator.Calculate(CreepType.Maintainer, spawn.store.getCapacity(RESOURCE_ENERGY)), "Maintainer" + String(Game.time), { memory: CurrentCreepMemory });
     }
 
     console.log(
