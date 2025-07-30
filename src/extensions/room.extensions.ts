@@ -2,7 +2,7 @@ import { CreepRole } from "../CreepRole";
 import { CreepState } from "../CreepState";
 import { GameStats } from "../GameStats";
 import { Globals } from "../globals";
-import { BodyPartCalculator, CreepType } from "../utils/creep.body-part-calculator";
+import { BodyPartCalculator, CreepType } from "../creep.body-part-calculator";
 
 declare global {
   interface Room {
